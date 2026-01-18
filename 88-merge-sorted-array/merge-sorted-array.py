@@ -7,8 +7,6 @@ class Solution:
         y= n-1
         b= m+n -1
 
-        
-            
         while x>= 0 and y>=0:
             if nums1[x] > nums2[y]:
                 nums1[b] = nums1[x]
