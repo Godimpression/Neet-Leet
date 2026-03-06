@@ -1,3 +1,40 @@
+# 70. Climbing Stairs
+
+### 💡 Intuition
+To reach the $n^{th}$ step, you must have come from either the $(n-1)^{th}$ step (by taking 1 step) or the $(n-2)^{th}$ step (by taking 2 steps). Therefore, the total number of ways to reach step $n$ is simply the sum of the ways to reach the two previous steps: $f(n) = f(n-1) + f(n-2)$. This mirrors the Fibonacci sequence pattern.
+
+---
+
+### 🚀 Approach
+
+#### Option 1: Top-Down Recursion (Memoization)
+To avoid the **Time Limit Exceeded** error caused by redundant calculations, we use a dictionary (`memo`) to store the result of each step the first time it is calculated.
+- **Check Memo:** Before calculating, check if `n` exists in the dictionary.
+- **Base Cases:** If $n=1$ return 1; if $n=2$ return 2.
+- **Store & Return:** Save the sum of the two previous recursive calls in the memo.
+
+
+
+#### Option 2: Bottom-Up Iteration (The Loop)
+This is the most space-efficient method. Instead of recursion, we use a loop to "climb" from step 3 up to $n$, only keeping track of the last two values.
+- **Initialize:** Start with `prev2 = 1` and `prev1 = 2`.
+- **Loop:** For each step from 3 to $n$, calculate the `current` sum and shift the pointers forward.
+
+
+
+---
+
+### 📊 Complexity
+
+#### **Memoization Approach**
+* **Time complexity:** $O(n)$ — Each step from 1 to $n$ is computed exactly once.
+* **Space complexity:** $O(n)$ — Required for the recursion stack and the dictionary storage.
+
+#### **Iterative Loop Approach**
+* **Time complexity:** $O(n)$ — A single pass through the loop from 3 to $n$.
+* **Space complexity:** $O(1)$ — Only two variables are stored regardless of the size of $n$.
+
+------------------------------------------------------------------------------------------------------
 # LeetCode 70: Climbing Stairs
 
 You are climbing a staircase that takes `n` steps to reach the top. Each time you can either climb **1** or **2** steps. This algorithm calculates the number of distinct ways to reach the top.
