@@ -1,3 +1,124 @@
++# 78. Subsets
+
+**Difficulty:** Medium | **Topic:** Array, Backtracking, Bit Manipulation
+
+---
+
+## Problem Statement
+
+Given an integer array `nums` of **unique** elements, return all possible subsets (the power set).
+
+The solution set **must not** contain duplicate subsets. Return the solution in **any order**.
+
+**Example 1:**
+```
+Input:  nums = [1, 2, 3]
+Output: [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
+```
+
+**Example 2:**
+```
+Input:  nums = [0]
+Output: [[], [0]]
+```
+
+---
+
+## Baby Explanation 👶
+
+Imagine you have 3 toppings for a pizza: **Cheese, Pepperoni, Mushroom**
+
+You can make a pizza with:
+- Nothing on it           → []
+- Just Cheese             → [Cheese]
+- Just Pepperoni          → [Pepperoni]
+- Just Mushroom           → [Mushroom]
+- Cheese + Pepperoni      → [Cheese, Pepperoni]
+- Cheese + Mushroom       → [Cheese, Mushroom]
+- Pepperoni + Mushroom    → [Pepperoni, Mushroom]
+- All three               → [Cheese, Pepperoni, Mushroom]
+
+That's **8 combinations** — those are your subsets!
+
+> For any list of `n` items → there are always **2ⁿ** subsets
+> Because for EACH item you have 2 choices: **include it or don't** ✅
+
+---
+
+## Intuition
+
+At every element, you make a **binary decision**:
+```
+Include it? YES or NO
+```
+
+Think of it as a decision tree:
+
+```
+                    []
+                /        \
+           [1]              []
+          /    \           /    \
+       [1,2]  [1]       [2]     []
+       /  \   / \      / \    / \
+  [1,2,3][1,2][1,3][1][2,3][2][3][]
+```
+
+Every path from root to leaf = one subset ✅
+
+---
+
+## Approach — Backtracking
+
+1. Start with an empty subset `[]`
+2. At each step, decide to **include** or **skip** the current element
+3. Once you've made a decision for all elements → save that subset
+4. **Backtrack** → undo the last decision and try the other option
+
+```
+nums = [1, 2, 3]
+
+Start with [] → add to result
+Take 1 → [1] → add to result
+  Take 2 → [1,2] → add to result
+    Take 3 → [1,2,3] → add to result ✅
+    Skip 3 → backtrack
+  Skip 2 → backtrack
+  Take 3 → [1,3] → add to result ✅
+  Skip 3 → backtrack
+Skip 1 → backtrack
+Take 2 → [2] → add to result
+  Take 3 → [2,3] → add to result ✅
+  Skip 3 → backtrack
+Skip 2 → backtrack
+Take 3 → [3] → add to result ✅
+```
+
+---
+
+## Solution
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+
+        def backtrack(start, current):
+            # Every state of current is a valid subset
+            result.append(current[:])
+
+            for i in range(start, len(nums)):
+                # Include nums[i]
+                current.append(nums[i])
+                # Recurse with next elements
+                backtrack(i + 1, current)
+                # Backtrack — undo the choice
+                current.pop()
+
+        backtrack(0, [])
+        return result
+```
+
 ## Step by Step Walkthrough
 
 **Input:** `nums = [1, 2, 3]`
