@@ -7,3 +7,19 @@ class Solution:
                 return True
             else:
                 return False
+---------------------------------------------------------
+
+
+from collections import defaultdict
+
+
+def anagrams(string1, string2):
+    dict1 = to_dict(string1)
+    dict2 = to_dict(string2)
+    return dict1 == dict2
+
+def to_dict(s):
+    d = defaultdict(int)
+    for c in s:
+        d[c] += 1
+    return d
