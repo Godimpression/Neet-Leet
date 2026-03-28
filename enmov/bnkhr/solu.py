@@ -18,5 +18,5 @@ class bankhours:
         if int(trade_hours[0:2])>=min_start and int(trade_hours[6:8])<=max_ending:
             return "Success"
         return "Failure"
-bofa=bankhours(["09:00-16:00","11:00-17:00","11:00-14:00"])
+bofa=bankhours(["05:00-16:00","11:00-17:00","11:00-14:00"])
 bofa.trade(("09:00-17:00"))
